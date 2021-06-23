@@ -1,14 +1,14 @@
 import random
 import factory
 from . import models
-from factory.fuzzy import FuzzyChoice, FuzzyInteger
+from factory.fuzzy import FuzzyChoice, FuzzyInteger, FuzzyFloat
 
 
 class RandomFilmworkType(FuzzyChoice):
     def fuzz(self):
         if self.choices is None:
             self.choices = list(self.choices_generator)
-        value = random.choices(self.choices, [6, 1])[0]
+        value = random.choices(self.choices, [5, 1])[0]
         if self.getter is None:
             return value
         return self.getter(value)
@@ -71,6 +71,7 @@ class FilmworkFactory(factory.django.DjangoModelFactory):
     description = factory.Faker('text')
     creation_date = factory.Faker('date')
     age_rating = FuzzyInteger(0, 21)
+    rating = FuzzyFloat(0, 10)
     link = factory.Faker('url')
 
 

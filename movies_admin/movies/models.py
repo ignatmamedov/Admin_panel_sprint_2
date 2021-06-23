@@ -52,6 +52,7 @@ class Filmwork(TimeStampedModel):
     description = models.TextField(_('содержание'), blank=True)
     creation_date = models.DateField(_('дата создания'), blank=True)
     age_rating = models.TextField(_('возрастной ценз'), blank=True)
+    rating = models.FloatField(_('рейтинг'), blank=True)
     genres = models.ManyToManyField(Genre, through='FilmworkGenre')
     link = models.URLField(_('ссылка на файл'), blank=True)
     persons = models.ManyToManyField(Person, through='FilmworkPerson')
