@@ -1,0 +1,9 @@
+FROM ubuntu:18.04
+
+RUN cat /etc/os-release | grep PRETTY_NAME
+
+RUN apt update -y
+RUN ls
+RUN apt install -y python3
+
+CMD ["python3"]
