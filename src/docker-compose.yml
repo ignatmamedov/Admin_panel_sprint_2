@@ -1,0 +1,49 @@
+version: '3'
+services:
+  db:
+    restart: always
+    image: postgres
+    ports:
+      - "5432:5432"
+
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  service:
+    command: ["/movies_admin/linux/dev_install.sh"]
+
+    environment:
+      - DATABASE_URI=postgres://postgres:postgres@postgres:5432/db?sslmode=disable
+    depends_on:
+      - db
+
+    links:
+      - db:postgres
+
+    volumes:
+      - ../movies_admin:/movies_admin
+    build: .
+    ports:
+      - "8000:8000"
+
+
+
+  nginx:
+    restart: always
+    image: nginx:1.19.2
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./configs:/etc/nginx/conf.d
+      - ../movies_admin/config/static:/static
+    depends_on:
+      - service
+    ports:
+      - "80:80"
+
+
+networks:
+  default:
+    external: true
+    name: my_network

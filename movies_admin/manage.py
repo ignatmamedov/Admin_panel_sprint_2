@@ -21,9 +21,13 @@ def main():
 if __name__ == '__main__':
     os.environ['DB_NAME'] = 'postgres'
     os.environ['DB_USER'] = 'postgres'
-    os.environ['DB_HOST'] = 'localhost'
+    os.environ['DB_HOST'] = 'postgres'
     os.environ['DB_PORT'] = '5432'
     os.environ['DB_OPTIONS'] = '-c search_path=content'
     os.environ['DB_PASSWORD'] = 'postgres'
     os.environ['DB_SECRET_KEY'] = '5bim(!=4f(8m=w6&k%sr)nptmap(cmterf5dojs$ogh)wg879s'
+    os.environ['DB_PASSWORD'] = 'postgres'
+    os.environ['DJANGO_SUPERUSER_USERNAME'] = 'dd'
+    os.environ['DJANGO_SUPERUSER_EMAIL'] = 'dd@dd.dd'
+    os.environ['DJANGO_SUPERUSER_PASSWORD'] ='dd'
     main()

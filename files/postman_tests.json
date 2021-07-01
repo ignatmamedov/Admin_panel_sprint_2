@@ -132,7 +132,7 @@
 							"    \"properties\": {",
 							"        \"count\": {\"type\": \"integer\"},",
 							"        \"total_pages\": {\"type\": \"integer\"},",
-							"        \"prev\": {\"type\": \"null\"},",
+							"        \"prev\": {\"type\": \"integer\"},",
 							"        \"next\": {\"type\": \"integer\"},",
 							"        \"results\": {\"type\": \"array\",",
 							"            \"items\": {\"type\": \"object\",",
