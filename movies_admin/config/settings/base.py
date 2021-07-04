@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DB_SECRET_KEY')
+SECRET_KEY = os.environ.get('DB_SECRET_KEY', '5bim(!=4f(8m=w6&k%sr)nptmap(cmterf5dojs$ogh)wg879s')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'movies.wsgi.application'
 
 
 # Database

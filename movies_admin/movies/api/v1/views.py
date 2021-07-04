@@ -11,40 +11,38 @@ class MoviesApiMixin:
     model = Filmwork
     http_method_names = ['get']
 
+    def get_queryset(self):
+        id = self.kwargs.get("pk", None)
+        queryset = Filmwork.objects.values(
+            'id',
+            'title',
+            'description',
+            'creation_date',
+            'rating',
+            'type',
+        ).annotate(
+            genres=ArrayAgg('genres__name'),
+            actors=ArrayAgg('persons__first_name', distinct=True, filter=Q(filmworkperson__role=ProfessionType.ACTOR)),
+            directors=ArrayAgg('persons__first_name', distinct=True,
+                               filter=Q(filmworkperson__role=ProfessionType.DIRECTOR)),
+            writers=ArrayAgg('persons__first_name', distinct=True,
+                             filter=Q(filmworkperson__role=ProfessionType.WRITER)),
+        )
+        if id:
+            return queryset.filter(pk=id)
+        return queryset
+
     def render_to_response(self, context, **response_kwargs):
-        return JsonResponse(context)
+        return JsonResponse(context, safe=False)
 
 
 class MoviesDetailApi(MoviesApiMixin, BaseDetailView):
-    def get_queryset(self):
-        id = self.kwargs.get("pk", None)
-        return Filmwork.objects.filter(pk=id).values().annotate(
-            genres=ArrayAgg('genres__name'),
-            actors=ArrayAgg('persons__first_name', distinct=True, filter=Q(filmworkperson__role=ProfessionType.ACTOR)),
-            directors=ArrayAgg('persons__first_name', distinct=True,
-                               filter=Q(filmworkperson__role=ProfessionType.DIRECTOR)),
-            writers=ArrayAgg('persons__first_name', distinct=True,
-                             filter=Q(filmworkperson__role=ProfessionType.WRITER)),
-        )
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = list(self.get_queryset())[0]
-
-        return context
+        return self.object
 
 
 class Movies(MoviesApiMixin, BaseListView):
-    def get_queryset(self):
-
-        return Filmwork.objects.prefetch_related('genres').values().annotate(
-            genres=ArrayAgg('genres__name'),
-            actors=ArrayAgg('persons__first_name', distinct=True, filter=Q(filmworkperson__role=ProfessionType.ACTOR)),
-            directors=ArrayAgg('persons__first_name', distinct=True,
-                               filter=Q(filmworkperson__role=ProfessionType.DIRECTOR)),
-            writers=ArrayAgg('persons__first_name', distinct=True,
-                             filter=Q(filmworkperson__role=ProfessionType.WRITER)),
-        )
-
     def get_context_data(self, *, object_list=None, **kwargs):
         paginator, page, queryset, is_paginated = self.paginate_queryset(list(self.get_queryset()), 50)
         next = None
@@ -61,4 +59,3 @@ class Movies(MoviesApiMixin, BaseListView):
             'results': page.object_list
         }
         return context
-

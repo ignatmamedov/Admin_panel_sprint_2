@@ -1,34 +1,23 @@
 version: '3'
 services:
   db:
+    build:
+      context: ../
+      dockerfile: ./src/dockerfile.postgres
     restart: always
-    image: postgres
-    ports:
-      - "5432:5432"
-
-
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
 
   service:
-    command: ["/movies_admin/linux/dev_install.sh"]
-
-    environment:
-      - DATABASE_URI=postgres://postgres:postgres@postgres:5432/db?sslmode=disable
+    build:
+      context: ../
+      dockerfile: ./src/dockerfile.service
     depends_on:
       - db
-
     links:
       - db:postgres
-
     volumes:
-      - ../movies_admin:/movies_admin
-    build: .
+      - ../movies_admin/config/static:/movies_admin/config/static
     ports:
       - "8000:8000"
-
-
 
   nginx:
     restart: always
