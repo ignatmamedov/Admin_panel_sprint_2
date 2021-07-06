@@ -28,8 +28,6 @@ class MoviesApiMixin:
             writers=ArrayAgg('persons__first_name', distinct=True,
                              filter=Q(filmworkperson__role=ProfessionType.WRITER)),
         )
-        if id:
-            return queryset.filter(pk=id)
         return queryset
 
     def render_to_response(self, context, **response_kwargs):

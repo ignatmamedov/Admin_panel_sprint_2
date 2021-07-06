@@ -1,4 +1,16 @@
 # Для автодепля и начала работы сервиса запустите 'start.sh' в корне проекта
+## После запуска контейнера зайдите в него:
+- docker exec -ti src_service_1 /bin/sh
+## и выполните команды:
+
+Для синхронизации БД с текущим набором моделей 
+- python ./manage.py migrate
+
+Для создания администратора
+- python ./manage.py createsuperuser --noinput
+
+Для генерации тестового набора данных
+- python ./manage.py generate_content
 
 
 

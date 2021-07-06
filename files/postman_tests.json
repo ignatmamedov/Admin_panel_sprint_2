@@ -83,14 +83,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/movies",
+					"raw": "127.0.0.1:80/api/v1/movies",
 					"host": [
 						"127",
 						"0",
 						"0",
 						"1"
 					],
-					"port": "8000",
+					"port": "80",
 					"path": [
 						"api",
 						"v1",
@@ -177,14 +177,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/movies?page=2",
+					"raw": "127.0.0.1:80/api/v1/movies?page=2",
 					"host": [
 						"127",
 						"0",
 						"0",
 						"1"
 					],
-					"port": "8000",
+					"port": "80",
 					"path": [
 						"api",
 						"v1",
@@ -278,14 +278,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/movies?page=last",
+					"raw": "127.0.0.1:80/api/v1/movies?page=last",
 					"host": [
 						"127",
 						"0",
 						"0",
 						"1"
 					],
-					"port": "8000",
+					"port": "80",
 					"path": [
 						"api",
 						"v1",
@@ -357,14 +357,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/movies/{{movieUuid}}",
+					"raw": "127.0.0.1:80/api/v1/movies/{{movieUuid}}",
 					"host": [
 						"127",
 						"0",
 						"0",
 						"1"
 					],
-					"port": "8000",
+					"port": "80",
 					"path": [
 						"api",
 						"v1",
@@ -395,14 +395,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:8000/api/v1/movies/0000",
+					"raw": "127.0.0.1:80/api/v1/movies/0000",
 					"host": [
 						"127",
 						"0",
 						"0",
 						"1"
 					],
-					"port": "8000",
+					"port": "80",
 					"path": [
 						"api",
 						"v1",

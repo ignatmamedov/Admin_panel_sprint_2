@@ -1,24 +1,10 @@
 FROM python:latest
 
-ENV DB_NAME='postgres'
-ENV DB_USER='postgres'
-ENV DB_HOST='postgres'
-ENV DB_PORT='5432'
-ENV DB_OPTIONS='-c search_path=content'
-ENV DB_PASSWORD='postgres'
-ENV DB_SECRET_KEY='5bim(!=4f(8m=w6&k%sr)nptmap(cmterf5dojs$ogh)wg879s'
-ENV DB_PASSWORD='postgres'
-ENV DJANGO_SUPERUSER_USERNAME='dd'
-ENV DJANGO_SUPERUSER_EMAIL='dd@dd.dd'
-ENV DJANGO_SUPERUSER_PASSWORD='dd'
+COPY ./movies_admin/config/settings/requirements.txt /tmp/
+RUN pip install --requirement /tmp/requirements.txt
 
 COPY ./movies_admin /movies_admin/
+
 WORKDIR /movies_admin/
-RUN pip install --requirement ./config/settings/requirements.txt
-CMD python ./manage.py makemigrations movies && \
-python ./manage.py migrate movies && \
-python ./manage.py migrate && \
-python ./manage.py createsuperuser --noinput && \
-python ./manage.py shell < /movies_admin/linux/generate_content.py && \
-python ./manage.py collectstatic --noinput; \
+CMD python ./manage.py collectstatic --noinput; \
 gunicorn --bind 0.0.0.0:8000 config.wsgi

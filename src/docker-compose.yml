@@ -1,9 +1,9 @@
 version: '3'
 services:
   db:
-    build:
-      context: ../
-      dockerfile: ./src/dockerfile.postgres
+    image: postgres
+    env_file:
+      - db.env
     restart: always
 
   service:
@@ -14,10 +14,10 @@ services:
       - db
     links:
       - db:postgres
+    env_file:
+      - ./service.env
     volumes:
       - ../movies_admin/config/static:/movies_admin/config/static
-    ports:
-      - "8000:8000"
 
   nginx:
     restart: always
@@ -27,6 +27,8 @@ services:
       - ./configs:/etc/nginx/conf.d
       - ../movies_admin/config/static:/static
     depends_on:
+      - service
+    links:
       - service
     ports:
       - "80:80"
